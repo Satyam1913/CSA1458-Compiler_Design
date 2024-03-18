@@ -1,0 +1,26 @@
+%{
+#include <stdio.h>
+#include <string.h>
+%}
+
+%%
+wordCount(char *word) {
+    int count = 0;
+    char *token = strtok(yytext, " ");
+    while (token != NULL) {
+        if (strcmp(token, word) == 0)
+            count++;
+        token = strtok(NULL, " ");
+    }
+    printf("Frequency of \"%s\" in the given sentence: %d\n", word, count);
+}
+
+.|\n   ;
+
+%%
+
+int main() {
+    printf("Enter a sentence: ");
+    yylex();
+    return 0;
+}
